@@ -1,0 +1,21 @@
+version: '3'
+services:
+  pdockerdevenv:
+    build:
+      context: ./
+      args:
+        UID: $UID  # export these first when building; UID/GID are shell variables
+        GID: $GID
+        UNAME: $USER
+        GIT_GLOBAL_USER_NAME: $GIT_GLOBAL_USER_NAME
+        GIT_GLOBAL_USER_EMAIL: $GIT_GLOBAL_USER_EMAIL
+        GIT_GLOBAL_USER_USER_NAME: $GIT_GLOBAL_USER_USER_NAME
+    user: $UID:$GID
+    working_dir: /workspace
+    stdin_open: true
+    volumes:
+      - /etc/group:/etc/group:ro
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/shadow:/etc/shadow:ro
+      - $PWD:/workspace
+    tty: true
