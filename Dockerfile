@@ -1,8 +1,6 @@
 FROM ubuntu:20.04 as base
-RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install -y software-properties-common git ripgrep tree curl bear build-essential cmake meld neovim zsh
-RUN apt-get install -y make libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
-RUN apt-get install -y tmux
-RUN apt-get install -y ccls
+RUN apt-get update && DEBIAN_FRONTEND="noninteractive" apt-get install -y software-properties-common git ripgrep tree curl bear build-essential cmake meld neovim zsh tmux
+RUN apt-get install -y ccls make libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
 RUN apt-get install -y locales locales-all
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
@@ -11,10 +9,7 @@ ENV LANGUAGE en_US.UTF-8
 FROM base as base-resources
 RUN mkdir -p ~/Documents/github
 RUN git clone https://github.com/pterodragon/config-files ~/Documents/github/config-files
-# RUN git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 RUN git clone https://github.com/pyenv/pyenv.git ~/Documents/github/pyenv
-# mind the pyenv root
-# RUN git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
 RUN git clone https://github.com/pyenv/pyenv-virtualenv.git ~/Documents/github/pyenv-virtualenv
 RUN git clone https://github.com/gpakosz/.tmux.git ~/Documents/github/tmux
 
@@ -88,7 +83,6 @@ RUN git config --global user.name $GIT_GLOBAL_USER_NAME
 RUN git config --global user.email $GIT_GLOBAL_USER_EMAIL
 RUN git config --global user.username $GIT_GLOBAL_USER_USER_NAME
 LABEL VERSION="0.0.1"
-
 
 # to build
 # export UID=$(id -u)
