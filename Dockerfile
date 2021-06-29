@@ -78,7 +78,7 @@ RUN pip3 install jedi
 RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 RUN nvim --headless +"PlugInstall" +qa
 RUN mkdir -p ~/.config/coc/extensions
-RUN cd ~/.config/coc/extensions && yarn add coc-python
+RUN cd ~/.config/coc/extensions && yarn add coc-pyright
 
 # git configs
 ARG GIT_GLOBAL_USER_NAME
